@@ -1,0 +1,38 @@
+-- EXERCÍCIOS ######################################################################
+
+-- (Exercício 1) Selecione os nomes de cidade distintas que existem no estado de
+-- Minas Gerais em ordem alfabética (dados da tabela sales.customers)
+-- Base Iniciel
+select * from sales.customers
+select distinct c.city, c.state
+from sales.customers as c
+where c.state = 'MG'
+order by c.city
+
+-- (Exercício 2) Selecione o visit_id das 10 compras mais recentes efetuadas
+-- (dados da tabela sales.funnel)
+-- Base Inicial
+select * from sales.funnel where finish_checkout_date  is not null
+
+select f.visit_id, finish_checkout_date 
+from sales.funnel as f
+where paid_date  is not null
+order by paid_date desc
+limit 10
+
+
+-- (Exercício 3) Selecione todos os dados dos 10 clientes com maior score nascidos
+-- após 01/01/2000 (dados da tabela sales.customers)
+-- Base Inicial
+select * 
+from sales.customers as c
+where c.birth_date > '2000-01-01'
+order by c.score desc 
+limit 10
+
+
+
+
+
+
+
