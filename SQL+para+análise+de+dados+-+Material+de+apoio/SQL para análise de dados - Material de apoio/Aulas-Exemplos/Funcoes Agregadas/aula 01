@@ -65,6 +65,8 @@ from sales.products
 where price = (select min(price)
 from sales.products)
 
+-- soma dos valores 
+select sum(price) from sales.products
 
 -- RESUMO ##########################################################################
 -- (1) Servem para executar operações aritmética nos registros de uma coluna 
