@@ -1,0 +1,79 @@
+-- EXERCÍCIOS ########################################################################
+
+-- (Exercício 1) Identifique quais as marcas de veículo mais visitada na tabela sales.funnel
+select * from sales.funnel
+select * from sales.products
+
+-- Minha Soluçao
+select
+	prod.brand,
+	count(fun.visit_page_date) as Visitas
+from sales.funnel as fun
+left join sales.products as prod
+	on fun.product_id = prod.product_id
+group by prod.brand
+order by visitas desc
+
+-- Solucao Instrutor
+select
+	prod.brand,
+	count(*) as Visitas
+from sales.funnel as fun
+left join sales.products as prod
+	on fun.product_id = prod.product_id
+group by prod.brand
+order by visitas desc
+
+-- (Exercício 2) Identifique quais as lojas de veículo mais visitadas na tabela sales.funnel
+select * from sales.funnel
+select * from sales.products
+select * from sales.customers
+select * from sales.stores
+
+-- Minha Soluçao
+select
+	st.store_name,
+	count(fun.visit_page_date) as Visitas
+from sales.funnel as fun
+left join sales.stores as st
+	on fun.store_id = st.store_id
+group by st.store_name
+order by visitas desc
+
+-- Solucao Instrutor
+select
+	st.store_name,
+	count(*) as Visitas
+from sales.funnel as fun
+left join sales.stores as st
+	on fun.store_id = st.store_id
+group by st.store_name
+order by visitas desc
+
+-- (Exercício 3) Identifique quantos clientes moram em cada tamanho de cidade (o porte da cidade
+-- consta na coluna "size" da tabela temp_tables.regions)
+select * from sales.customers
+select * from temp_tables.regions as reg
+
+-- Minha Soluçao
+select
+	reg.size,
+	count(reg.population) as Clientes
+from sales.customers as cus
+left join temp_tables.regions as reg
+	on lower(reg.city) = lower(cus.city)
+	and lower(reg.state) = lower(reg.state)
+group by reg.size
+order by Clientes desc
+
+-- Solucao Instrutor
+select
+	reg.size,
+	count(*) as contagem
+from sales.customers as cus
+left join temp_tables.regions as reg
+	on lower(cus.city) = lower(reg.city)
+	and lower(cus.state) = lower(reg.state)
+group by reg.size
+order by contagem desc
+
