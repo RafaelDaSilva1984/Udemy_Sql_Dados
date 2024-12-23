@@ -1,0 +1,3 @@
+-- Unions (Unir/colar sobre tabelas, desde que as mesmas tenhas as mesmas qtds de colunas e os mesmos tipos de dados)
+-- Union all: não remove os dados duplicados 
+-- Union: remove os dados duplicados
