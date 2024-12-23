@@ -1,0 +1,58 @@
+-- EXERCÍCIOS ########################################################################
+
+-- (Exemplo 1) Identifique qual é o status profissional mais frequente nos clientes 
+-- que compraram automóveis no site
+SELECT * FROM SALES.CUSTOMERS
+SELECT * FROM SALES.FUNNEL
+
+SELECT 
+	CUS.PROFESSIONAL_STATUS,
+	COUNT(FUN.PAID_DATE) AS PAGAMENTOS
+FROM SALES.FUNNEL AS FUN
+LEFT JOIN SALES.CUSTOMERS AS CUS
+ON FUN.CUSTOMER_ID = CUS.CUSTOMER_ID
+GROUP BY CUS.PROFESSIONAL_STATUS
+ORDER BY PAGAMENTOS DESC
+
+-- (Exemplo 2) Identifique qual é o gênero mais frequente nos clientes que compraram
+-- automóveis no site. Obs: Utilizar a tabela temp_tables.ibge_genders
+select * from temp_tables.ibge_genders limit 10 --first 
+SELECT * FROM SALES.CUSTOMERS limit 10 -- first e custumer id
+SELECT * FROM SALES.FUNNEL limit 10 -- paid date e custumer id
+
+SELECT
+	IBGE.GENDER,
+	COUNT(FUN.PAID_DATE) AS PAGAMENTOS
+FROM SALES.FUNNEL AS FUN
+LEFT JOIN SALES.CUSTOMERS AS CUS
+	ON FUN.CUSTOMER_ID = CUS.CUSTOMER_ID
+LEFT JOIN temp_tables.ibge_genders AS IBGE
+	ON LOWER(CUS.FIRST_NAME) = IBGE.FIRST_NAME
+GROUP BY IBGE.GENDER
+ORDER BY PAGAMENTOS DESC
+
+-- (Exemplo 3) Identifique de quais regiões são os clientes que mais visitam o site
+-- Obs: Utilizar a tabela temp_tables.regions
+select * from temp_tables.regions limit 10 -- state
+select * from sales.customers limit 1 -- state e - customer_id
+select * from sales.funnel limit 10 -- visit site e - customer_id
+
+select
+	reg.region as "Regiao",
+	COUNT(fun.visit_page_date) AS "Visitas Page"	
+from sales.funnel as fun
+left join sales.customers as cus
+	on fun.customer_id = cus.customer_id
+left join temp_tables.regions as reg
+	on lower(cus.city) = lower(reg.city )
+	and lower(cus.state) = lower(reg.state)
+group by reg.region
+order by "Visitas Page"	 desc
+
+
+
+
+
+
+
+
